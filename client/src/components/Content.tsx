@@ -8,12 +8,10 @@ const Content = () => {
       <div className="flex flex-col h-screen">
         <UpperNav />
         <Navbar />
-        <div className="flex-1 min-h-0">
-          <Home />
-        </div>
+        <Home />
       </div>
     </>
   )
 }
 
-export default Content
+export default Content;

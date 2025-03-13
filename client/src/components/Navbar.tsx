@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <nav
       className={`bg-gradient-to-r from-[#210036] via-[#7038ed] to-[#210036] fixed w-full 
-      ${isScrolled ? "top-0" : "top-10"} z-50 p-4 border-b border-gray-400 text-white 
+      ${isScrolled ? "top-0" : "top-8"} z-50 p-4 border-b border-gray-400 text-white 
       transition-all duration-300 shadow-sm`}
     >
       <div className="container flex justify-between items-center">

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import "../styles/Footer.css";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -8,7 +9,8 @@ const Footer = () => {
 
     return (
         <footer id="footer">
-            <div id="upperFooter" className='bg-gradient-to-r from-[#210036] via-[#7038ed] to-[#210036] text-white flex lg:flex-row flex-col justify-between items-center py-16'>
+            <div id="upperFooter" className='relative bg-gradient-to-r from-[#210036] via-[#7038ed] to-[#210036] text-white flex lg:flex-row flex-col justify-between items-center py-16'>
+                <div id='upperFooterBgImg' className='absolute h-full w-full'></div>
                 <img src="/img/EmeyLogo.webp" alt="Hell Spawn Logo" className='max-h-64 max-w-64 mb-6 lg:mb-0' />
                 <ul id="usefullLinks" className='mx-8 mb-6 lg:mb-0'>
                     <h2 className="text-lg font-semibold mb-8">USEFUL LINKS</h2>

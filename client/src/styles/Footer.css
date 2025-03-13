@@ -1,0 +1,9 @@
+#upperFooterBgImg{
+    z-index: 5;
+    background-image: url(/img/transparent_bubble.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: repeat;
+    background-clip: border-box;
+    opacity: 30%;
+}
