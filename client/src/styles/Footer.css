@@ -1,5 +1,5 @@
 #upperFooterBgImg{
-    z-index: 5;
+    z-index: 0;
     background-image: url(/img/transparent_bubble.webp);
     background-position: center;
     background-size: cover;

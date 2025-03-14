@@ -4,3 +4,34 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+@font-face {
+    font-family: 'BananaYeti';
+    src: url('../assets/fonts/BananaYeti.woff2') format('woff2'),
+        url('../assets/fonts/BananaYeti.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.HomeMainText {
+    font-family: 'BananaYeti', sans-serif;
+    font-size: 4rem;
+}
+
+@keyframes SlideUpDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+#HomeCat{
+    animation: SlideUpDown 2s ease-in-out infinite;
+}

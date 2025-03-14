@@ -1,0 +1,26 @@
+#FeaturedProductsHeading{
+    text-align: center;
+    margin: 4rem 0 2rem 0;
+    font-family: "BananaYeti", cursive;
+    font-size: 3rem;
+    color: #7038ed;
+}
+
+.activeTab{
+    color: #7038ed;
+    border-bottom: 2px solid #7038ed;
+}
+
+#FeaturedProductsBgImg{
+    z-index: 0;
+    background-image: url(/img/green_bubble.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: repeat;
+    background-clip: border-box;
+}
+
+.SingleFeaturedProduct{
+    z-index: 1;
+    background-color: white;
+}

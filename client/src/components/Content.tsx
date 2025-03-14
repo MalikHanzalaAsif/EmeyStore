@@ -1,6 +1,7 @@
 import UpperNav from './UpperNav';
 import Navbar from './Navbar';
 import Home from './Home';
+import FeaturedProductsSection from './FeaturedProductsSection';
 
 const Content = () => {
   return (
@@ -10,6 +11,7 @@ const Content = () => {
         <Navbar />
         <Home />
       </div>
+      <FeaturedProductsSection />
     </>
   )
 }
