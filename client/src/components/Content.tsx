@@ -2,6 +2,7 @@ import UpperNav from './UpperNav';
 import Navbar from './Navbar';
 import Home from './Home';
 import FeaturedProductsSection from './FeaturedProductsSection';
+import Collection from './Collection';
 
 const Content = () => {
   return (
@@ -12,6 +13,7 @@ const Content = () => {
         <Home />
       </div>
       <FeaturedProductsSection />
+      <Collection />
     </>
   )
 }

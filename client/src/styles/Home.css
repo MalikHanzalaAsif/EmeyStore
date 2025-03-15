@@ -5,14 +5,6 @@
     background-size: cover;
 }
 
-@font-face {
-    font-family: 'BananaYeti';
-    src: url('../assets/fonts/BananaYeti.woff2') format('woff2'),
-        url('../assets/fonts/BananaYeti.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 .HomeMainText {
     font-family: 'BananaYeti', sans-serif;
     font-size: 4rem;

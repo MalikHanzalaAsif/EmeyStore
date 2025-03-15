@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/FeaturedProducts.css";
 import Products from "../utils/Products";
 

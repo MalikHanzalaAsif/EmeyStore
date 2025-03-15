@@ -1,0 +1,10 @@
+#Collection{
+    background-image: url(/img/CollectionBg.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#CollectionBananaFont{
+    font-family: 'BananaYeti', sans-serif;
+}
