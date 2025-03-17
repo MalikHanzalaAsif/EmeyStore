@@ -1,0 +1,48 @@
+export default [
+    {
+        "id": "9d2b1c238f-013d-45cd-bfb8-aded8bb182c7",
+        "title": "Tshirt",
+        "description": "Lightweight, breathable tees to rep the squad in style.",
+        "price": "25.99",
+        "image": "/products/lp1.webp",
+        "category": "TSHIRTS",
+        "quantity": "1",
+        "color": "white",
+        "size": "md",
+    },
+    {
+        "id": "9d2b1c6358f-013d-45cd-bfb8-aded8bb182c7",
+        "title": "Tshirt",
+        "description": "Lightweight, breathable tees to rep the squad in style.",
+        "price": "25.99",
+        "image": "/products/lp2.webp",
+        "category": "TSHIRTS",
+        "quantity": "1",
+        "color": "white",
+        "size": "md",
+    },
+    {
+        "id": "eb57ac00-49f0-402b-9bf1-de1f6139974c",
+        "title": "Trouser",
+        "description": "Comfortable joggers made for gaming and everyday wear.",
+        "price": "35.50",
+        "image": "/products/lp3.webp",
+        "category": "TROUSERS",
+        "quantity": "1",
+        "color": "white",
+        "size": "md",
+
+    },
+    {
+        "id": "eb57ac00-49f0-402b-9bf1-de654r139974c",
+        "title": "Trouser",
+        "description": "Comfortable joggers made for gaming and everyday wear.",
+        "price": "35.50",
+        "image": "/products/lp4.webp",
+        "category": "TROUSERS",
+        "quantity": "1",
+        "color": "white",
+        "size": "md",
+
+    },
+]

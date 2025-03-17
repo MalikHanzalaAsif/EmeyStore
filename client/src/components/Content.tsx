@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import Home from './Home';
 import FeaturedProductsSection from './FeaturedProductsSection';
 import Collection from './Collection';
+import LatestProducts from './LatestProducts';
+import Testimonials from './Testimonials';
 
 const Content = () => {
   return (
@@ -14,6 +16,8 @@ const Content = () => {
       </div>
       <FeaturedProductsSection />
       <Collection />
+      <LatestProducts />
+      <Testimonials />
     </>
   )
 }
