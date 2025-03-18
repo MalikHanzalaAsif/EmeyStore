@@ -5,6 +5,7 @@ import FeaturedProductsSection from './FeaturedProductsSection';
 import Collection from './Collection';
 import LatestProducts from './LatestProducts';
 import Testimonials from './Testimonials';
+import Support from './Support';
 
 const Content = () => {
   return (
@@ -18,6 +19,7 @@ const Content = () => {
       <Collection />
       <LatestProducts />
       <Testimonials />
+      <Support />
     </>
   )
 }

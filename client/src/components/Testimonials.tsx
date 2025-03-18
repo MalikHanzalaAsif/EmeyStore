@@ -11,12 +11,12 @@ const Testimonials = () => {
             <Heading text="Testimonials" />
             <Marquee pauseOnHover={true} speed={30} gradient={false} className="flex">
                 {ReviewsArray.map((review) => (
-                    <div id="SingleReview" key={review.id} className="max-w-96 m-6 p-4 shadow-xl rounded-xl bg-white">
+                    <div id="SingleReview" key={review.id} className="max-w-72 md:max-w-96 m-6 p-4 shadow-xl rounded-xl bg-white">
                         <div className="flex items-center">
                             <img src="/img/profileIcon.png" alt="profile" className="h-8" />
                             <div className="SingleReviewDetails ml-2">
                                 <p className="SingleReviewName text-lg font-semibold">{review.name}</p>
-                                <p className="SingleReviewCustomer text-gray-500">{review.profession}</p>
+                                <p className="SingleReviewCustomer text-gray-500 text-xs">{review.profession}</p>
                             </div>
                             <img src="/img/coma.png" alt="coma" className="h-8 ml-auto" />
                         </div>
