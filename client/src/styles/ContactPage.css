@@ -1,0 +1,52 @@
+#ContactPage{
+    background-image: url(/img/white_bubble.webp);
+    background-position: center;
+    background-size: cover;
+}
+
+/* Full-width container to match input width */
+.custom-phone-container {
+    width: 100%;
+    height: 3rem; /* Same height as inputs */
+    position: relative;
+}
+
+/* Phone input (text part) styled to match inputs */
+.custom-phone-input {
+    font-family: "Poppins", sans-serif;
+    width: 100% !important;
+    background-color: white !important;
+    color: #210036 !important;
+    padding: 0 1rem !important;
+    padding-left: 4rem !important; /* Space for flag dropdown */
+    border: 0.125rem solid #7038ed !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    font-size: 1rem !important;
+    height: 3rem !important; /* Ensuring height matches */
+    line-height: 3rem !important;
+}
+
+.custom-phone-button {
+    width: 3rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: transparent !important;
+    border: 0.125rem solid #7038ed !important;
+    cursor: pointer !important;
+}
+
+/* Optional: placeholder color */
+.custom-phone-input::placeholder {
+    color: gray !important;
+    font-family: "Poppins", sansserif;
+}
+
+.custom-phone-dropdown {
+    max-width: 90vw !important;  /* Limit dropdown width to 90% of viewport */
+    left: 0 !important;          /* Force dropdown to align correctly */
+    right: auto !important;      /* Override any right positioning */
+    overflow-x: hidden !important; /* Just in case */
+    z-index: 9999 !important;    /* Make sure it shows on top */
+}

@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Content from '../components/Content';
 import AboutPage from '../pages/AboutPage';
 import ShopPage from '../pages/ShopPage';
+import ContactPage from '../pages/ContactPage';
 
 const WebRoutes = () => {
     return (
@@ -14,6 +15,7 @@ const WebRoutes = () => {
                     <Route index element={<Content />} />
                     <Route path='/about' element={<AboutPage />} />
                     <Route path='/shop' element={<ShopPage />} />
+                    <Route path='/contact' element={<ContactPage />} />
                 </Route>
             </Routes>
         </Router>
