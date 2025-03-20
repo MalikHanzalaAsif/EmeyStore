@@ -18,7 +18,7 @@ const FeaturedProducts = () => {
                 ))} 
             </div>
             <div id="FeaturedProductsItems" className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
-            <div id='FeaturedProductsBgImg' className='absolute h-full w-full'></div>
+            <div id='FeaturedProductsBgImg' className='absolute h-full w-full' style={{zIndex: "-10"}}></div>
                 {filteredProducts.map((item) => (
                     <div className="SingleFeaturedProduct my-8 border border-[#210036] w-48" key={item.id}>
                         <div className="SingleFeaturedProductImgSection flex justify-center items-center">

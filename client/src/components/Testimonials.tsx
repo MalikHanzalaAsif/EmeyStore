@@ -5,7 +5,7 @@ import Heading from "./ui/Heading";
 const Testimonials = () => {
     return (
         <section id="Testimonials" className="relative">
-            <div id='FeaturedProductsBgImg' className='absolute h-full w-full'></div>
+            <div id='FeaturedProductsBgImg' className='absolute h-full w-full' style={{zIndex: "-10"}}></div>
             <img src="/img/testimonialGirlLeft.webp" alt="testomonial girl" className="absolute h-44 md:h-72 bottom-0 left-0" style={{zIndex: "2"}}/>
             <img src="/img/testimonialGirlRight.webp" alt="testomonial girl" className="absolute h-60 hidden md:block bottom-0 right-0" style={{zIndex: "2"}}/>
             <Heading text="Testimonials" />

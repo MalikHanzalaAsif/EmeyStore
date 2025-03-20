@@ -3,7 +3,7 @@ import Testimonials from "../components/Testimonials";
 
 const AboutPage = () => {
   return (
-    <div id="AboutPage" className="mt-32 relative">
+    <div id="AboutPage" className="mt-32 relative bg-[url(/img/white_bubble.webp)] bg-cover bg-center">
       <img src="/img/HomeCat.webp" alt="cat" className="absolute h-40"/>
       <h1 id="AboutPageHeading" className="font-[BananaYeti] text-6xl text-[#7038ed] text-center">About Us</h1>
       <p className="text-center mt-8 max-w-[80vw] m-auto bg-[url(/img/SupportBg.webp)]
