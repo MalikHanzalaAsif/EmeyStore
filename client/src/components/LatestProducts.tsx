@@ -1,11 +1,13 @@
 import LatestProductsArray from "../utils/LatestProductsArray";
 import "../styles/LatestProducts.css";
 import Heading from "./ui/Heading";
+import { useNavigate } from "react-router";
 
 const LatestProducts = () => {
+    const navigate = useNavigate();
     return (
         <section id="LatestProducts" className="relative">
-            <div id='FeaturedProductsBgImg' className='absolute h-full w-full' style={{zIndex: "-10"}}></div>
+            <div id='FeaturedProductsBgImg' className='absolute h-full w-full' style={{ zIndex: "-10" }}></div>
             <img src="/img/LatestProductsCat.webp" alt="cat" className="absolute h-44 top-0 left-0" />
             <img src="/img/HomeCat.webp" alt="cat" className="absolute h-28 bottom-0 right-0" />
             <Heading text="Latest Products" />
@@ -19,7 +21,9 @@ const LatestProducts = () => {
                             <p className="ml-2">{item.title}</p>
                             <p className="mr-2 text-gray-500">${item.price}</p>
                         </div>
-                        <button className="SingleFeaturedProuctsButton text-center flex justify-center items-center w-full border-t border-[#210036] bg-[#210036] text-white py-1 hover:bg-[#7038ed] transition-colors duration-300">
+                        <button className="SingleFeaturedProuctsButton text-center flex justify-center items-center w-full border-t border-[#210036] bg-[#210036] text-white py-1 hover:bg-[#7038ed] transition-colors duration-300" onClick={() => {
+                            navigate(`/product/${item.id}`);
+                        }}>
                             Add to Cart
                         </button>
                     </div>

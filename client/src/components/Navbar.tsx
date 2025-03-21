@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, Heart } from "lucide-react";
 import "../styles/Navbar.css";
 import { NavLink, Link } from "react-router";
 import Badge from '@mui/material/Badge';
@@ -65,6 +65,7 @@ export default function Navbar() {
             </Badge>
           </Link>
           <User className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
+          <Heart className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
           {/* Hamburger Menu Button (Mobile) */}
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}

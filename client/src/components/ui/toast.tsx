@@ -23,7 +23,7 @@ interface ToastEmitterProps {
   progress?: any;
   theme?: string;
   customButton?: any;
-  navigate: NavigateFunction;
+  navigate?: NavigateFunction;
 }
 const toastEmitter = ({
   title,
@@ -53,27 +53,21 @@ const toastEmitter = ({
   // Render a custom toast content if `customButton` is provided
   const toastContent =
     typeof customButton !== "string" ? (
-      <div>
+      <div className="flex justify-around">
         <span>{title}</span>
         <button
           onClick={() => {
             if (typeof customButton === "function") {
               customButton(); // Call a function if provided
             } else {
-              navigate("/cart"); // Redirect to cart page by default
+              if (navigate) {
+                navigate("/cart"); // Redirect to cart page by default
+              }
             }
           }}
-          style={{
-            marginLeft: "16px",
-            padding: "5px 10px",
-            background: "transparent",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
+          className="cursor-pointer px-6 py-1 border-2 border-white rounded-md ml-8"
         >
-          {typeof customButton === "string" ? customButton : "Action"}
+          cart
         </button>
       </div>
     ) : (

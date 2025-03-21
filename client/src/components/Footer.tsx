@@ -44,7 +44,7 @@ const Footer = () => {
                 </ul>
                 <form id="subscribeToOurNewsLetter" className='flex flex-col mr-4' onSubmit={handleSubmit} style={{zIndex: "1"}}>
                     <h2 className="text-lg font-semibold mb-8">SUBSCRIBE TO OUR NEWSLETTER</h2>
-                    <input type="email" name="email" id="footerEmail" placeholder='write your email..' className='mb-4 p-1 pl-4 placeholder:text-xs' />
+                    <input type="email" name="email" id="footerEmail" placeholder='write your email..' className='mb-4 p-1 pl-4 placeholder:text-xs placeholder:text-gray-400' />
                     <button type='submit' id='footerFormSubmitButton' className='mb-4 w-fit px-8 bg-[#7038ed] text-white p-1 hover:opacity-[0.9] text-sm'><Link to="/contact">SUBMIT</Link></button>
                     <div className='text-center text-md '>
                     Call Us Now: <a href="tel:+353876545954" className='text-blue-500 underline'>+353 87 654 5954</a>
