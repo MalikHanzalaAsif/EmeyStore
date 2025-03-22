@@ -9,7 +9,7 @@ import contactApi from '../api/contactApi';
 
 
 const ContactPage = () => {
-    const { register, handleSubmit, watch, control, reset, formState: { errors, isSubmitting } } = useForm<FormData>();
+    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm<FormData>();
 
     interface FormData {
       fullName: string;

@@ -4,8 +4,10 @@ import "../styles/Navbar.css";
 import { NavLink, Link } from "react-router";
 import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import useStore from "../store/store";
 
 export default function Navbar() {
+  const { cart, favourites } = useStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -60,12 +62,16 @@ export default function Navbar() {
         {/* Right Section - Icons */}
         <div className="flex items-center space-x-4 ml-auto">
           <Link to="/cart">
-            <Badge badgeContent={0} color="primary">
+            <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCartOutlinedIcon fontSize="medium" className="cursor-pointer hover:text-gray-400" />
             </Badge>
           </Link>
           <User className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
-          <Heart className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
+          <Link to={"/favourites"}>
+            <Badge badgeContent={favourites.length} color="secondary">
+              <Heart className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
+            </Badge>
+          </Link>
           {/* Hamburger Menu Button (Mobile) */}
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}

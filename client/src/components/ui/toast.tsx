@@ -9,7 +9,7 @@ type ToastPosition =
   | "bottom-right"
   | "bottom-center";
 
-type ToastType = "info" | "success" | "error" | "warn";
+type ToastType = "info" | "success" | "error" | "warn" | "default";
 
 interface ToastEmitterProps {
   title: string;
@@ -22,7 +22,8 @@ interface ToastEmitterProps {
   draggable?: boolean;
   progress?: any;
   theme?: string;
-  customButton?: any;
+  redirectRoute?: any;
+  redirectButton?: any;
   navigate?: NavigateFunction;
 }
 const toastEmitter = ({
@@ -35,8 +36,9 @@ const toastEmitter = ({
   pauseOnHover = true,
   draggable = true,
   progress,
-  theme = "colored",
-  customButton = null, // Optional button component or function
+  theme = "light",
+  redirectButton = null,
+  redirectRoute = null, // Optional button component or function
   navigate
 }: ToastEmitterProps) => {
   const options: ToastOptions = {
@@ -52,22 +54,18 @@ const toastEmitter = ({
 
   // Render a custom toast content if `customButton` is provided
   const toastContent =
-    typeof customButton !== "string" ? (
-      <div className="flex justify-around">
-        <span>{title}</span>
+    typeof redirectRoute === "string" ? (
+      <div className="flex justify-center">
+        <div>{title}</div>
         <button
           onClick={() => {
-            if (typeof customButton === "function") {
-              customButton(); // Call a function if provided
-            } else {
               if (navigate) {
-                navigate("/cart"); // Redirect to cart page by default
+                navigate(redirectRoute);
               }
-            }
           }}
-          className="cursor-pointer px-6 py-1 border-2 border-white rounded-md ml-8"
+          className="cursor-pointer border-2 border-gray-400 rounded-md ml-8 w-auto whitespace-nowrap min-w-12"
         >
-          cart
+          {redirectButton}
         </button>
       </div>
     ) : (

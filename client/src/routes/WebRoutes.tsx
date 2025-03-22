@@ -7,6 +7,7 @@ import ShopPage from '../pages/ShopPage';
 import ContactPage from '../pages/ContactPage';
 import Cart from "../pages/Cart";
 import Product from '../pages/Product';
+import Favourites from '../pages/Favourites';
 
 const WebRoutes = () => {
     return (
@@ -20,6 +21,7 @@ const WebRoutes = () => {
                     <Route path='/contact' element={<ContactPage />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/product/:id" element={<Product />} />
+                    <Route path='/favourites' element={<Favourites />} />
                 </Route>
             </Routes>
         </Router>

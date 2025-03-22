@@ -52,35 +52,35 @@ const useStore = create<StoreState>()(
                     const existingItem = state.cart.find((product) => product.id === item.id && product.color === item.color && product.size === item.size);
                     if (existingItem) {
                         return {
-                            cart: state.cart.map((product) => product.id === item.id && product.color === item.color && product.size === item.size ? { ...product, quantity: String(Number(product.quantity) - 1) } : product)
+                            cart: state.cart.map((product) => product.id === item.id && product.color === item.color && product.size === item.size ? { ...product, quantity: String(Math.max(Number(product.quantity) - 1, 1)) } : product)
                         }
                     } else {
                         return { cart: [...state.cart] }
                     }
                 }),
-            
-            clearCart: () => set({cart: []}),
+
+            clearCart: () => set({ cart: [] }),
 
             favourites: [],
 
-            addToFavourites: (item) => 
+            addToFavourites: (item) =>
                 set((state) => {
                     const existingItem = state.favourites.find((product) => product.id === item.id && product.color === item.color && product.size === item.size);
-                    if(existingItem) {
-                        return {favourites: state.favourites}
+                    if (existingItem) {
+                        return { favourites: state.favourites }
                     } else {
-                        return {favourites: [...state.favourites, item]}
+                        return { favourites: [...state.favourites, item] }
                     }
                 }),
-            
-            removeFromFavourites: (item) => 
+
+            removeFromFavourites: (item) =>
                 set((state) => ({
                     favourites: state.favourites.filter((product) => !(product.id === item.id && product.color === item.color && product.size === item.size))
                 })),
         }),
         {
             name: "EmeyStore",
-            partialize: (state) => ( { cart: state.cart, favourites: state.favourites, })
+            partialize: (state) => ({ cart: state.cart, favourites: state.favourites, })
         }
     )
 );
