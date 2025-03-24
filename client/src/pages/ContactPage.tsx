@@ -1,8 +1,7 @@
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import "../styles/ContactPage.css"
-import { useForm } from "react-hook-form";
-import { Controller } from 'react-hook-form';
+import { useForm, Controller } from "react-hook-form";
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 import CircularProgress from '@mui/material/CircularProgress';
 import contactApi from '../api/contactApi';

@@ -8,6 +8,8 @@ import ContactPage from '../pages/ContactPage';
 import Cart from "../pages/Cart";
 import Product from '../pages/Product';
 import Favourites from '../pages/Favourites';
+import LoginPage from '../pages/LoginPage';
+import SignupPage from '../pages/SignupPage';
 
 const WebRoutes = () => {
     return (
@@ -19,9 +21,11 @@ const WebRoutes = () => {
                     <Route path='/about' element={<AboutPage />} />
                     <Route path='/shop' element={<ShopPage />} />
                     <Route path='/contact' element={<ContactPage />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/product/:id" element={<Product />} />
+                    <Route path='/cart' element={<Cart />} />
+                    <Route path='/product/:id' element={<Product />} />
                     <Route path='/favourites' element={<Favourites />} />
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path="/signup" element={<SignupPage />} />
                 </Route>
             </Routes>
         </Router>

@@ -61,17 +61,23 @@ export default function Navbar() {
 
         {/* Right Section - Icons */}
         <div className="flex items-center space-x-4 ml-auto">
+
           <Link to="/cart">
             <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCartOutlinedIcon fontSize="medium" className="cursor-pointer hover:text-gray-400" />
             </Badge>
           </Link>
-          <User className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
+
+          <Link to={"/login"}>
+            <User className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
+          </Link>
+
           <Link to={"/favourites"}>
             <Badge badgeContent={favourites.length} color="secondary">
               <Heart className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
             </Badge>
           </Link>
+          
           {/* Hamburger Menu Button (Mobile) */}
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
