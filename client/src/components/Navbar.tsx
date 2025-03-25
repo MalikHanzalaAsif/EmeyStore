@@ -5,6 +5,7 @@ import { NavLink, Link } from "react-router";
 import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import useStore from "../store/store";
+import Avatar from "./ui/Avatar";
 
 export default function Navbar() {
   const { cart, favourites } = useStore();
@@ -68,9 +69,7 @@ export default function Navbar() {
             </Badge>
           </Link>
 
-          <Link to={"/login"}>
-            <User className="w-6 h-6 text-white cursor-pointer hover:text-gray-400" />
-          </Link>
+            <Avatar />
 
           <Link to={"/favourites"}>
             <Badge badgeContent={favourites.length} color="secondary">

@@ -1,10 +1,17 @@
 import './App.css';
 import WebRoutes from './routes/WebRoutes';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 function App() {
   return (
     <>
-      <WebRoutes />
+      <PayPalScriptProvider
+        options={{
+          "client-id": import.meta.env.VITE_PAYPAL_LIVE_CLIENT_ID,
+          currency: "USD",
+        }}>
+        <WebRoutes />
+      </PayPalScriptProvider >
     </>
   )
 }

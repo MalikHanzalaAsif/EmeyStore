@@ -1,20 +1,27 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 import { loginApi } from '../api/userApi';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import useStore from '../store/store';
 
 export default function LoginPage() {
-    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm<FormData>();
+    const navigate = useNavigate();
+    const { setUser } = useStore();
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>();
 
     interface FormData {
         email: string;
         password: string;
     }
-    
+
     const onSubmit = async (formData: FormData) => {
-        loginApi(formData);
+        let data = await loginApi(formData);
+        if (data.user) {
+            setUser(data.user);
+        }
         reset();
+        navigate("/");
     };
 
     return (
@@ -86,9 +93,10 @@ export default function LoginPage() {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                disabled={isSubmitting}
                             >
-                                Sign in
+                                {isSubmitting ? (<CircularProgress color='primary' size={30} />) : "Sign in"}
                             </button>
                         </div>
                     </form>

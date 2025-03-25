@@ -2,10 +2,11 @@ import useStore from "../store/store";
 import { Link, useNavigate } from "react-router";
 import { useMemo } from "react";
 import toastEmitter from "../components/ui/toast";
+import { signupApi } from "../api/userApi";
 
 const Cart = () => {
     const navigate = useNavigate();
-    const { cart, addToCart, removeFromCart, decreaseQuantity, addToFavourites } = useStore();
+    const { cart, addToCart, removeFromCart, decreaseQuantity, addToFavourites, user } = useStore();
 
     const addToFavouriteFunc = (item: any) => {
         addToFavourites(item)
@@ -20,6 +21,13 @@ const Cart = () => {
             return acc + price * quantity;
         }, 0);
     }, [cart]);
+
+    const checkOut = () => {
+        if(!user) {
+            toastEmitter({title: "Please Login to Proceed Checkout", type: "default"});
+            navigate("/login");
+        }
+    }
 
     return cart.length > 0 ? (
         <section className="bg-white py-8 antialiased md:py-16 bg-[url(/img/white_bubble.webp)] bg-cover bg-center">
@@ -118,7 +126,7 @@ const Cart = () => {
                                 </div>
                             </div>
 
-                            <a href="#" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-[#210036] focus:outline-none focus:ring-4 focus:ring-primary-300 bg-[#7038ed] transition-colors">Proceed to Checkout</a>
+                            <button className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-[#210036] focus:outline-none focus:ring-4 focus:ring-primary-300 bg-[#7038ed] transition-colors" onClick={checkOut}>Proceed to Checkout</button>
 
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal text-gray-500"> or </span>

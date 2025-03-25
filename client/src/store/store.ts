@@ -1,8 +1,7 @@
-import { ListItem } from '@mui/material';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface Product {
+interface ProductInterface {
     id: string;
     title: string;
     description: string;
@@ -13,23 +12,32 @@ interface Product {
     color: string;
     size: string;
 }
+interface userInterface {
+    id: string;
+    name: string;
+    email: string;
+}
 
 interface StoreState {
-    cart: Product[];
-    addToCart: (item: Product) => void;
-    removeFromCart: (item: Product) => void;
-    decreaseQuantity: (item: Product) => void;
+    cart: ProductInterface[];
+    addToCart: (item: ProductInterface) => void;
+    removeFromCart: (item: ProductInterface) => void;
+    decreaseQuantity: (item: ProductInterface) => void;
     clearCart: () => void;
-    favourites: Product[];
-    addToFavourites: (item: Product) => void;
-    removeFromFavourites: (item: Product) => void;
+    favourites: ProductInterface[];
+    addToFavourites: (item: ProductInterface) => void;
+    removeFromFavourites: (item: ProductInterface) => void;
+    user: userInterface | null;
+    setUser: (user: userInterface) => void;
+    removeUser: () => void;
 }
 
 const useStore = create<StoreState>()(
     persist(
         (set) => ({
-            cart: [],
 
+            // Cart
+            cart: [],
             addToCart: (item) =>
                 set((state) => {
                     const existingItem = state.cart.find((product) => product.id === item.id && product.color === item.color && product.size === item.size);
@@ -41,12 +49,10 @@ const useStore = create<StoreState>()(
                         return { cart: [...state.cart, item] }
                     }
                 }),
-
             removeFromCart: (item) =>
                 set((state) => ({
                     cart: state.cart.filter((product) => !(product.id === item.id && product.color === item.color && product.size === item.size))
                 })),
-
             decreaseQuantity: (item) =>
                 set((state) => {
                     const existingItem = state.cart.find((product) => product.id === item.id && product.color === item.color && product.size === item.size);
@@ -58,11 +64,10 @@ const useStore = create<StoreState>()(
                         return { cart: [...state.cart] }
                     }
                 }),
-
             clearCart: () => set({ cart: [] }),
 
+            // Favourites
             favourites: [],
-
             addToFavourites: (item) =>
                 set((state) => {
                     const existingItem = state.favourites.find((product) => product.id === item.id && product.color === item.color && product.size === item.size);
@@ -72,15 +77,20 @@ const useStore = create<StoreState>()(
                         return { favourites: [...state.favourites, item] }
                     }
                 }),
-
             removeFromFavourites: (item) =>
                 set((state) => ({
                     favourites: state.favourites.filter((product) => !(product.id === item.id && product.color === item.color && product.size === item.size))
                 })),
+
+
+            // User
+            user: null,
+            setUser: (item) => set({user: item}),
+            removeUser: () => set({user: null})
         }),
         {
             name: "EmeyStore",
-            partialize: (state) => ({ cart: state.cart, favourites: state.favourites, })
+            partialize: (state) => ({ cart: state.cart, favourites: state.favourites, user: state.user })
         }
     )
 );

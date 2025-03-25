@@ -1,12 +1,15 @@
 import { useForm } from 'react-hook-form';
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { signupApi } from '../api/userApi';
+import { CircularProgress } from '@mui/material';
+import useStore from '../store/store';
 
 
 export default function SignupPage() {
-    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm<FormData>();
-
+    const navigate = useNavigate();
+    const { setUser } = useStore();
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>();
     interface FormData {
         fullName: string;
         email: string;
@@ -14,8 +17,12 @@ export default function SignupPage() {
     }
 
     const onSubmit = async (formData: FormData) => {
-        signupApi(formData);
+        let data = await signupApi(formData);
+        if (data.user) {
+            setUser(data.user)
+        }
         reset();
+        navigate("/");
     };
 
     return (
@@ -113,9 +120,10 @@ export default function SignupPage() {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                disabled={isSubmitting}
                             >
-                                Sign Up
+                                {isSubmitting ? (<CircularProgress color='primary' size={30} />) : "Sign up"}
                             </button>
                         </div>
                     </form>
