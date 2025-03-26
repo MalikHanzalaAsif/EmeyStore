@@ -5,22 +5,21 @@ import { useNavigate } from 'react-router-dom';
 import toastEmitter from '../components/ui/toast.tsx';
 import { Controller, useForm } from "react-hook-form";
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import { Modal, Box, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import useStore from '../store/store.ts';
 import axios from 'axios';
 
-const style = {
+const ModalStyles = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: "32rem",
-    bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
+    overflowY: "auto",
+    maxHeight: "90vh",
 };
 
 interface formDataInterface {
@@ -52,10 +51,11 @@ const CheckoutForm = () => {
         };
     };
 
-    const { cart } = useStore();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const { cart, user } = useStore();
+
     const navigate = useNavigate();
     const {
         register,
@@ -65,8 +65,17 @@ const CheckoutForm = () => {
         formState: { errors },
     } = useForm<formDataInterface>()
 
+
     const onSubmit = async (data: formDataInterface) => {
-        console.log("form data: ", data);
+        if(!user){
+            toastEmitter({
+                title: "please login to confirm order",
+                type: "info",
+            });
+            navigate('/login');
+            return;
+        }
+
         if (!cart || cart.length === 0) {
             toastEmitter({
                 title: "your cart is empty",
@@ -87,7 +96,7 @@ const CheckoutForm = () => {
 
     return (
         <>
-            <div className="font-[sans-serif] bg-white mt-8">
+            <div className="font-[sans-serif] bg-white mt-24">
                 <div className="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full justify-center">
                     <div className="max-w-4xl w-full h-max rounded-md px-4 py-8 sticky top-0">
                         <h2 className="text-2xl font-bold text-gray-800">Complete your order</h2>
@@ -99,7 +108,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="text"
                                             placeholder="First Name"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md placeholder:text-gray-500"
                                             required
                                             {...register("firstName", {
                                                 required: {
@@ -121,7 +130,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="text"
                                             placeholder="Last Name"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 placeholder:text-gray-500 w-full text-sm rounded-md"
                                             {...register("lastName")}
                                         />
                                         {errors.lastName && <span className='text-red-600 mb-4'>{errors.lastName.message}</span>}
@@ -131,7 +140,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="email"
                                             placeholder="Email"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 placeholder:text-gray-500 w-full text-sm rounded-md"
                                             required
                                             {...register("email", {
                                                 required: {
@@ -169,15 +178,14 @@ const CheckoutForm = () => {
                                                     inputStyle={{
                                                         fontSize: "1rem",
                                                         backgroundColor: "transparent",
-                                                        border: "none",
-                                                        outline: "none",
-                                                        height: "50px", // Adjust to match your bg height
-                                                        paddingLeft: "48px", // Space for flag
+                                                        height: "50px",
+                                                        paddingLeft: "48px",
                                                         width: "100%",
+                                                        border: "1px solid black",
                                                     }}
                                                     buttonStyle={{
                                                         backgroundColor: "transparent",
-                                                        border: "none",
+                                                        border: "1px solid black",
                                                         height: "50px", // Ensure it matches input height
                                                     }}
                                                 />
@@ -196,7 +204,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="text"
                                             placeholder="Address Line"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent w-full text-sm rounded-md text-gray-800 placeholder:text-gray-500"
                                             required
                                             {...register("address", {
                                                 required: {
@@ -211,7 +219,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="text"
                                             placeholder="City"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent w-full text-sm rounded-md text-gray-800 placeholder:text-gray-500"
                                             required
                                             {...register("city", {
                                                 required: {
@@ -226,7 +234,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="text"
                                             placeholder="State"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent w-full text-sm rounded-md text-gray-800 placeholder:text-gray-500"
                                             required
                                             {...register("state", {
                                                 required: {
@@ -241,7 +249,7 @@ const CheckoutForm = () => {
                                         <input
                                             type="number"
                                             placeholder="Zip Code"
-                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
+                                            className="px-4 py-3 bg-gray-100 focus:bg-transparent w-full text-sm rounded-md text-gray-800 placeholder:text-gray-500"
                                             required
                                             {...register("zipCode", {
                                                 required: {
@@ -255,78 +263,59 @@ const CheckoutForm = () => {
                                 </div>
 
                                 <div className="flex gap-4 max-md:flex-col mt-8">
-                                    <button type="button" className="rounded-md px-4 py-2.5 w-full text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1" onClick={() => {
+                                    <button type="button" className="rounded-md h-fit py-2.5 flex-1 text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-red-600 max-md:order-1" onClick={() => {
                                         toastEmitter({
                                             title: "order has been interrupted!",
                                             type: "info",
                                         });
                                         navigate('/')
                                     }}>Cancel</button>
-                                    <button type="submit" className="rounded-md px-4 py-2.5 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white">Continue Purchase</button>
+                                    <div className='flex-1'>
+                                        <button type="submit" className="px-4 py-2.5 w-full text-sm tracking-wide bg-[#7038ed] hover:bg-[#210036] text-white transition-colors rounded-md">Continue Purchase</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
 
-            {/* PAYMENT MODAL */}
-            <div>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
+                {/* PAYMENT MODAL */}
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
 
-                >
-                    <Box sx={{
-                        ...style,
-                        overflowY: "auto",
-                        maxHeight: "90vh",
-                        boxShadow: "inset 0 0 6px #000000",
-                    }}>
-                        <h1 id="modal-modal-title" className='text-center text-4xl mb-4'>
-                            Order Details
-                        </h1>
-                        <p className='text-center text-sm'>Please ensure that all details are correct before proceeding with payment.</p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>NAME:</b> &nbsp; {formState.firstName} {formState.lastName}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>EMAIL:</b> &nbsp; {formState.email}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>PHONE NO:</b> &nbsp; {formState.phone}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>ADDRESS:</b> &nbsp; {formState.address}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>CITY:</b> &nbsp; {formState.city}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>STATE:</b> &nbsp; {formState.state}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2'>
-                            <b className='font-semibold'>ZIP CODE:</b> &nbsp; {formState.zipCode}
-                        </p>
-                        <p id="modal-modal-description" className='mt-2 mb-4'>
-                            <b className='font-semibold'>TOTAL AMOUNT:</b> &nbsp; ${calculatedItemTotal} (including additional charges)
-                        </p>
-                        <div>
-                            <Button variant="contained" color="primary" style={{ marginRight: "2rem", marginBottom: "0.5rem", borderRadius: "50px" }} onClick={handleClose}>
-                                change Details
-                            </Button>
-
-                            <div className="mt-6">
+                    >
+                        <Box sx={ModalStyles} className="backdrop-blur-xl w-[90vw] sm:w[80vw] md:w-[60vw] lg:w-[50vw]">
+                            <IconButton
+                                onClick={handleClose}
+                                sx={{
+                                    position: "absolute",
+                                    top: 10,
+                                    right: 10,
+                                    color: "black",
+                                    backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                    "&:hover": { backgroundColor: "rgba(255, 255, 255, 1)" },
+                                }}
+                            >
+                                <CloseIcon fontSize="large" />
+                            </IconButton>
+                            <h1 id="modal-modal-title" className='text-center text-4xl mb-4 text-white'>
+                                PayPal Checkout
+                            </h1>
+                            <h3 className='text-white text-center text-xl'>Total Amount: <span className='text-[#7038ed] text-3xl'>${calculatedItemTotal.toFixed(2)}</span></h3>
+                            <div>
+                                <div className="mt-6"></div>
                                 <PayPalButtons
                                     style={{
-                                        color: "silver", // Options: 'gold', 'blue', 'silver', 'white', 'black'
-                                        shape: "pill", // Options: 'rect', 'pill'
+                                        color: "white", // Options: 'gold', 'blue', 'silver', 'white', 'black'
+                                        shape: "rect", // Options: 'rect', 'pill'
                                         label: "checkout",  // Options: 'pay', 'checkout', 'buynow', 'paypal', 'installment'
                                         layout: "vertical", // Options: 'horizontal', 'vertical'
                                         tagline: false, // Options: true, false (to show/hide tagline)
-                                        height: 40, // Set button height (optional)
+                                        height: 43, // Set button height (optional)
                                     }}
                                     createOrder={(data, actions) => {
                                         const purchase_units = [
@@ -350,7 +339,7 @@ const CheckoutForm = () => {
                                             },
                                         ];
 
-                                        return actions.order.create({ 
+                                        return actions.order.create({
                                             intent: "CAPTURE",
                                             purchase_units,
                                         });
@@ -364,7 +353,7 @@ const CheckoutForm = () => {
                                                 console.log("Transaction details: ", details);
                                                 if (details) {
                                                     await verifyPayment(details.id, formState);
-                                                    navigate('/thank-you');
+                                                    // navigate('/thank-you');
                                                 }
                                             });
                                         }
@@ -377,10 +366,11 @@ const CheckoutForm = () => {
                                         alert("An error occurred during the transaction. Please try again.");
                                     }}
                                 />
+
                             </div>
-                        </div>
-                    </Box>
-                </Modal>
+                        </Box>
+                    </Modal>
+                </div>
             </div>
         </>
     )

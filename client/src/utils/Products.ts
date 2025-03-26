@@ -3,7 +3,7 @@ export default [
     "id": "9d2b1c238f-013d-45cd-bfb8-aded8bb182c7",
     "title": "Tshirt",
     "description": "Lightweight, breathable tees to rep the squad in style.",
-    "price": "25.99",
+    "price": "1.00",
     "image": "/products/p1.webp",
     "category": "TSHIRTS",
     "quantity": "1",

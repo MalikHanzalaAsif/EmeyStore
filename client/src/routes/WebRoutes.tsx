@@ -10,6 +10,7 @@ import Product from '../pages/Product';
 import Favourites from '../pages/Favourites';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
+import CheckoutForm from '../pages/CheckoutPage';
 
 const WebRoutes = () => {
     return (
@@ -26,6 +27,7 @@ const WebRoutes = () => {
                     <Route path='/favourites' element={<Favourites />} />
                     <Route path='/login' element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
+                    <Route path='/checkout' element={<CheckoutForm /> } />
                 </Route>
             </Routes>
         </Router>

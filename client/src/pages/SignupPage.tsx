@@ -21,8 +21,10 @@ export default function SignupPage() {
         if (data.user) {
             setUser(data.user)
         }
+        if(data.type === "success") {
+            navigate("/")
+        }
         reset();
-        navigate("/");
     };
 
     return (

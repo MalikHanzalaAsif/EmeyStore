@@ -26,6 +26,8 @@ const Cart = () => {
         if(!user) {
             toastEmitter({title: "Please Login to Proceed Checkout", type: "default"});
             navigate("/login");
+        } else {
+            navigate("/checkout");
         }
     }
 

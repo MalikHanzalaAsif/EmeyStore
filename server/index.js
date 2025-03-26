@@ -9,6 +9,7 @@ const dbUrl = process.env.DB_URL;
 const port = process.env.PORT || 3000;
 import contactRoutes from "./routes/contactRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 // Database Connection
 mongoose.connect(dbUrl)
@@ -28,6 +29,7 @@ app.use(cors({
 // Routes
 app.use(contactRoutes);
 app.use(userRoutes);
+app.use(orderRoutes);
 
 // Error Handling Middlewares
 app.use((err, req, res, next) => {
