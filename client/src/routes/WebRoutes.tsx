@@ -11,6 +11,8 @@ import Favourites from '../pages/Favourites';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
 import CheckoutForm from '../pages/CheckoutPage';
+import OrdersPage from '../pages/OrdersPage';
+import NotFound from '../pages/NotFound';
 
 const WebRoutes = () => {
     return (
@@ -28,6 +30,8 @@ const WebRoutes = () => {
                     <Route path='/login' element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path='/checkout' element={<CheckoutForm /> } />
+                    <Route path='/orders' element={<OrdersPage />} />
+                    <Route path='*' element={<NotFound />} />
                 </Route>
             </Routes>
         </Router>

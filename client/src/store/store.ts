@@ -1,22 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { ProductInterface } from '../utils/types';
+import { userInterface } from '../utils/types';
 
-interface ProductInterface {
-    id: string;
-    title: string;
-    description: string;
-    price: string;
-    image: string;
-    category: string;
-    quantity: string;
-    color: string;
-    size: string;
-}
-interface userInterface {
-    id: string;
-    name: string;
-    email: string;
-}
 
 interface StoreState {
     cart: ProductInterface[];
@@ -24,12 +10,16 @@ interface StoreState {
     removeFromCart: (item: ProductInterface) => void;
     decreaseQuantity: (item: ProductInterface) => void;
     clearCart: () => void;
+
     favourites: ProductInterface[];
     addToFavourites: (item: ProductInterface) => void;
     removeFromFavourites: (item: ProductInterface) => void;
+
     user: userInterface | null;
     setUser: (user: userInterface) => void;
     removeUser: () => void;
+
+    orders: any;
 }
 
 const useStore = create<StoreState>()(
@@ -86,7 +76,11 @@ const useStore = create<StoreState>()(
             // User
             user: null,
             setUser: (item) => set({user: item}),
-            removeUser: () => set({user: null})
+            removeUser: () => set({user: null}),
+
+
+            // Orders
+            orders: [],
         }),
         {
             name: "EmeyStore",

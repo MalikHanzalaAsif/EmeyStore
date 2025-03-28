@@ -1,5 +1,7 @@
 import axios from 'axios';
 import nodemailer from 'nodemailer';
+import Order from '../models/Order.js';
+import User from '../models/User.js';
 
 const getAccessToken = async () => {
     try {
@@ -69,31 +71,34 @@ export const sendEmails = async (formData, user, orderDetails, orderId) => {
             },
         });
 
-        // Generate a dynamic string for all cart items, including size
         const cartItemsString = orderDetails.purchase_units[0].items.map((item, index) => {
-            // Extract size and color using string methods
+            // Extract size and color from description
             let size = "Not specified";
             let color = "Not specified";
 
             if (item.description) {
                 const parts = item.description.split(","); // Split at ","
-
                 if (parts.length > 1) {
-                    size = parts[0].split(":")[1].trim();  // Get value after "Size:"
-                    color = parts[1].split(":")[1].trim(); // Get value after "Color:"
+                    color = parts[0].split(":")[1]?.trim() || "Not specified";  // Get value after "Size:"
+                    size = parts[1].split(":")[1]?.trim() || "Not specified"; // Get value after "Color:"
                 }
             }
 
+            const itemTotal = (item.quantity * Number(item.unit_amount.value)).toFixed(2);
+            const itemPrice = Number(item.unit_amount.value).toFixed(2);
+
             return `
-                ITEM ${index + 1}:
-                - Name: ${item.name}
-                - Size: ${size}
-                - Color: ${color}
-                - Quantity: ${item.quantity || 1}
-                - Price: ${Number(item.unit_amount.value).toFixed(2)} ${item.unit_amount.currency_code}
-                - Total: ${(item.quantity * Number(item.unit_amount.value)).toFixed(2)} ${item.unit_amount.currency_code}
+                <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    <h4 style="color: #2980B9;">ITEM ${index + 1}: ${item.name}</h4>
+                    <p><strong>Size:</strong> ${size}</p>
+                    <p><strong>Color:</strong> ${color}</p>
+                    <p><strong>Quantity:</strong> ${item.quantity || 1}</p>
+                    <p><strong>Price:</strong> ${itemPrice} ${item.unit_amount.currency_code}</p>
+                    <p><strong>Total:</strong> ${itemTotal} ${item.unit_amount.currency_code}</p>
+                </div>
             `;
-        }).join("\n");
+        }).join("");
+
 
 
 
@@ -102,48 +107,69 @@ export const sendEmails = async (formData, user, orderDetails, orderId) => {
             from: process.env.FROM_EMAIL,
             to: process.env.TO_EMAIL,
             subject: "New Order on Emey's Store",
-            text: `
-                -------- CUSTOMER DETAILS --------
-                NAME: ${orderDetails.payer.name.given_name} ${orderDetails.payer.name.surname}
-                EMAIL: ${orderDetails.payer.email_address}
-                PHONE: ${formData.phone}
-                ADDRESS: ${formData.address || "Not Provided"}
-                CITY: ${formData.city || "Not Provided"}
-                STATE: ${formData.state || "Not Provided"}
-                ZIP CODE: ${formData.zipCode || "Not Provided"}
-                
-                -------- EMEY STORE PROFILE DETAILS --------
-                NAME: ${user.name}
-                EMAIL: ${user.email}
-                ID: ${user.id}
-
-                -------- ORDER DETAILS --------
-                ORDER ID: ${orderId}
-                TOTAL: ${orderDetails.purchase_units[0].amount.value} ${orderDetails.purchase_units[0].amount.currency_code}
-                PAYPAL FEE: ${paypalFee}
-                SHIPPING: ${shipping} 
-                TAX: ${tax} 
-                DISCOUNT: ${discount}
-                EXCHNAGE RATE: ${exchangeRate}
-                GROSS AMOUNT: ${grossAmount}
-                NET AMOUNT: ${netAmount}
-                FINAL AMOUNT RECEIVED: ${receivableAmount}
-
-                
-                CART ITEMS:
-                ${cartItemsString}
-                
-                -------- CUSTOMER PAYPAL ACCOUNT DETAILS --------
-                ADDRESS: ${orderDetails.purchase_units[0].shipping.address.address_line_1 || "Not Provided"}
-                CITY: ${orderDetails.purchase_units[0].shipping.address.admin_area_2 || "Not Provided"}
-                STATE: ${orderDetails.purchase_units[0].shipping.address.admin_area_1 || "Not Provided"}
-                ZIP CODE: ${orderDetails.purchase_units[0].shipping.address.postal_code || "Not Provided"}
-                COUNTRY: ${orderDetails.purchase_units[0].shipping.address.country_code || "Not Provided"}
-                
-                -------- ADDITIONAL INFO --------
-                ORDER TIME: ${orderDetails.create_time}
+            html: `
+                <html>
+                <body style="font-family: Arial, sans-serif; color: #333;">
+                    <h2 style="text-align: center; color: #2C3E50;">New Order Details</h2>
+                    
+                    <div style="margin: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px;">
+                        <h3 style="color: #2980B9;">Customer Given Details</h3>
+                        <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+                        <p><strong>Email:</strong> ${formData.email}</p>
+                        <p><strong>Phone:</strong> ${formData.phone}</p>
+                        <p><strong>Address:</strong> ${formData.address || "Not Provided"}</p>
+                        <p><strong>City:</strong> ${formData.city || "Not Provided"}</p>
+                        <p><strong>State:</strong> ${formData.state || "Not Provided"}</p>
+                        <p><strong>Zip Code:</strong> ${formData.zipCode || "Not Provided"}</p>
+                    </div>
+                    
+                    <div style="margin: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px;">
+                        <h3 style="color: #2980B9;">Emey Store Profile</h3>
+                        <p><strong>Name:</strong> ${user.name}</p>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>ID:</strong> ${user.id}</p>
+                    </div>
+                    
+                    <div style="margin: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px;">
+                        <h3 style="color: #2980B9;">Order Details</h3>
+                        <p><strong>Order ID:</strong> ${orderId}</p>
+                        <p><strong>Total:</strong> ${orderDetails.purchase_units[0].amount.value} ${orderDetails.purchase_units[0].amount.currency_code}</p>
+                        <p><strong>PayPal Fee:</strong> ${paypalFee}</p>
+                        <p><strong>Shipping:</strong> ${shipping}</p>
+                        <p><strong>Tax:</strong> ${tax}</p>
+                        <p><strong>Discount:</strong> ${discount}</p>
+                        <p><strong>Exchange Rate:</strong> ${exchangeRate}</p>
+                        <p><strong>Gross Amount:</strong> ${grossAmount}</p>
+                        <p><strong>Net Amount:</strong> ${netAmount}</p>
+                        <p><strong>Receivable Amount:</strong> ${receivableAmount}</p>
+                    </div>
+                    
+                    <div style="margin: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px;">
+                        <h3 style="color: #2980B9;">Cart Items</h3>
+                        <pre>${cartItemsString}</pre>
+                    </div>
+        
+                    <div style="margin: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px;">
+                        <h3 style="color: #2980B9;">Customer PayPal Account Details</h3>
+                        <p><strong>Name:</strong> ${orderDetails.payer.name.given_name} ${orderDetails.payer.name.surname}</p>
+                        <p><strong>Email:</strong> ${orderDetails.payer.email_address}</p>
+                        <p><strong>Address:</strong> ${orderDetails.purchase_units[0].shipping.address.address_line_1 || "Not Provided"}</p>
+                        <p><strong>City:</strong> ${orderDetails.purchase_units[0].shipping.address.admin_area_2 || "Not Provided"}</p>
+                        <p><strong>State:</strong> ${orderDetails.purchase_units[0].shipping.address.admin_area_1 || "Not Provided"}</p>
+                        <p><strong>Zip Code:</strong> ${orderDetails.purchase_units[0].shipping.address.postal_code || "Not Provided"}</p>
+                        <p><strong>Country:</strong> ${orderDetails.purchase_units[0].shipping.address.country_code || "Not Provided"}</p>
+                    </div>
+        
+                    <div style="margin: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px;">
+                        <h3 style="color: #2980B9;">Additional Info</h3>
+                        <p><strong>Order Time:</strong> ${orderDetails.create_time}</p>
+                    </div>
+        
+                </body>
+                </html>
             `,
         };
+
 
         const ownerInfo = await transporter.sendMail(ownerMailOptions);
         console.log("Email sent successfully to owner:", ownerInfo.response);
@@ -151,14 +177,24 @@ export const sendEmails = async (formData, user, orderDetails, orderId) => {
         const userMailOptions = {
             from: process.env.FROM_EMAIL,
             to: user.email,
-            subject: "Order placed succesfully on Emey's Store",
-            text: `Dear ${user.name}/${formData.firstName} ${formData?.lastName}!
-             Thank you for your purchase. 
-             Your order has been placed successfully.
-             Your order ID is ${orderId}. 
-             Check your paypal account for more details. 
-             if you have any queries feel free to reach us. Thanks!`
+            subject: "Order Placed Successfully on Emey's Store",
+            html: `
+                <html>
+                <body style="font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; padding: 20px;">
+                    <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 600px; margin: 0 auto;">
+                        <h2 style="text-align: center; color: #2980B9;">Thank You for Your Purchase!</h2>
+                        <p style="font-size: 16px;">Dear ${user.name} (${formData.firstName} ${formData?.lastName}),</p>
+                        <p style="font-size: 16px;">Thank you for shopping with Emey's Store! Your order has been placed successfully.</p>
+                        <p style="font-size: 16px;"><strong>Order ID:</strong> ${orderId}</p>
+                        <p style="font-size: 16px;">You can check your PayPal account for more details about your order. If you have any questions, feel free to reach out to us.</p>
+                        <p style="font-size: 16px;">Thanks for choosing Emey's Store. We hope to see you again soon!</p>
+                        <p style="font-size: 16px; text-align: center;">Best regards, <br />The Emey's Store Team</p>
+                    </div>
+                </body>
+                </html>
+            `,
         };
+
         if (user.email === formData.email) {
             // Send email asynchronously
             const userInfo = await transporter.sendMail(userMailOptions);
@@ -167,9 +203,24 @@ export const sendEmails = async (formData, user, orderDetails, orderId) => {
             const userMailOptions2 = {
                 from: process.env.FROM_EMAIL,
                 to: formData.email,
-                subject: "Order placed succesfully on Emey's Store",
-                text: `Dear ${user.name}/${formData.firstName} ${formData?.lastName}! Thank you for your purchase. Your order has been placed successfully. Your order ID is ${orderId}. Check your paypal account for more details. if you have any queries feel free to reach us. Thanks!`
+                subject: "Order Placed Successfully on Emey's Store",
+                html: `
+                    <html>
+                    <body style="font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; padding: 20px;">
+                        <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 600px; margin: 0 auto;">
+                            <h2 style="text-align: center; color: #2980B9;">Thank You for Your Purchase!</h2>
+                            <p style="font-size: 16px;">Dear ${user.name} (${formData.firstName} ${formData?.lastName}),</p>
+                            <p style="font-size: 16px;">Thank you for shopping with Emey's Store! Your order has been placed successfully.</p>
+                            <p style="font-size: 16px;"><strong>Order ID:</strong> ${orderId}</p>
+                            <p style="font-size: 16px;">You can check your PayPal account for more details about your order. If you have any questions, feel free to reach out to us.</p>
+                            <p style="font-size: 16px;">Thanks for choosing Emey's Store. We hope to see you again soon!</p>
+                            <p style="font-size: 16px; text-align: center;">Best regards, <br />The Emey's Store Team</p>
+                        </div>
+                    </body>
+                    </html>
+                `,
             };
+
             // Send email asynchronously
             const userInfo = await transporter.sendMail(userMailOptions);
             console.log("Email sent successfully to first user:", userInfo.response);
@@ -190,10 +241,25 @@ export const verifyPayment = async (req, res) => {
         const accessToken = await getAccessToken();
         const orderDetails = await getOrderDetails(orderId, accessToken);
         if (orderDetails.status === "COMPLETED") {
+            console.log(`order completed by ${user.name}`);
             res.json({ message: "Payment verified.", type: "success", orderDetails });
             await sendEmails(formData, user, orderDetails, orderId);
-            console.log("order completed by user");
+            try {
+                const userObj = await User.findOne({ _id: user.id });
+                const orderObject = {
+                    userId: userObj._id,
+                    orderId: orderDetails.id,
+                    createdAt: orderDetails.create_time,
+                    price: orderDetails.purchase_units[0].amount.value
+                }
+                const newOrder = new Order(orderObject);
+                await newOrder.save();
+                console.log("new order saved!");
+            } catch (err) {
+                console.log("error while saving order:", err);
+            }
         } else {
+            console.log("order is not verified")
             return res.status(400).json({ type: "error", message: "Payment not completed." });
         }
     } catch (error) {

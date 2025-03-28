@@ -3,6 +3,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from 'react-router-dom';
 import toastEmitter from '../components/ui/toast.tsx';
+import { toast } from 'react-toastify';
 import { Controller, useForm } from "react-hook-form";
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 import { PayPalButtons } from "@paypal/react-paypal-js";
@@ -35,20 +36,38 @@ interface formDataInterface {
 
 const CheckoutForm = () => {
     const verifyPayment = async (orderId: any, formData: formDataInterface) => {
+
+        const pendingToastId = toast.loading("Verifying payment...");
+
         try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/verify-payment`, { orderId, formData });
-            console.log("Payment verification response: ", response.data);
-            toastEmitter({
+            const response = await axios.post(
+                `${import.meta.env.VITE_SERVER_URL}/verify-payment`,
+                { orderId, formData },
+                { withCredentials: true }
+            );
+
+            console.log("Payment verification response from backend: ", response.data);
+
+            toast.update(pendingToastId, {
+                render: "Payment verified successfully!",
                 type: "success",
-                title: "Payment verified successfully!",
+                isLoading: false,
+                autoClose: 3000,
+                closeButton: true,
+                closeOnClick: true,
             });
         } catch (error) {
             console.error("Error verifying payment: ", error);
-            toastEmitter({
+
+            toast.update(pendingToastId, {
+                render: "Payment verification failed!",
                 type: "error",
-                title: "Payment verification failed!",
+                isLoading: false,
+                autoClose: 3000,
+                closeButton: true,
+                closeOnClick: true,
             });
-        };
+        }
     };
 
     const [open, setOpen] = useState(false);
@@ -67,7 +86,7 @@ const CheckoutForm = () => {
 
 
     const onSubmit = async (data: formDataInterface) => {
-        if(!user){
+        if (!user) {
             toastEmitter({
                 title: "please login to confirm order",
                 type: "info",
@@ -334,7 +353,7 @@ const CheckoutForm = () => {
                                                         value: parseFloat(item.price).toFixed(2),
                                                         currency_code: "USD",
                                                     },
-                                                    description: `color: ${item.color}`
+                                                    description: `color: ${item.color}, size: ${item.size}`
                                                 })),
                                             },
                                         ];

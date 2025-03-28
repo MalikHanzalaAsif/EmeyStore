@@ -1,6 +1,7 @@
 import axios from "axios";
 import toastEmitter from "../components/ui/toast.tsx"
 const serverUrl = import.meta.env.VITE_SERVER_URL;
+import { userInterface } from "../utils/types.ts";
 
 interface signupData {
     fullName: string;
