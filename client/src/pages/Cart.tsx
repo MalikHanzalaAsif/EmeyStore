@@ -40,7 +40,7 @@ const Cart = () => {
                     <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-3xl">
                         <div className="space-y-6">
                             {cart.map((item) => (
-                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6" key={item.id}>
                                     <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                         <a href="#" className="shrink-0 md:order-1">
                                             <img className="h-20" src={item.image} alt="imac image" onClick={() => navigate(`/product/${item.id}`)}/>

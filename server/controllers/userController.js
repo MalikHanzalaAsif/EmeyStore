@@ -136,4 +136,5 @@ export const logout = (req, res) => {
 
 export const getUser = (req, res) => {
     res.json(req.user);
+    console.log("sent user!")
 };

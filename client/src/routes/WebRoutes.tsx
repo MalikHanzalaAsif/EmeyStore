@@ -13,6 +13,7 @@ import SignupPage from '../pages/SignupPage';
 import CheckoutForm from '../pages/CheckoutPage';
 import OrdersPage from '../pages/OrdersPage';
 import NotFound from '../pages/NotFound';
+import ThankYou from '../pages/ThankYou';
 
 const WebRoutes = () => {
     return (
@@ -31,6 +32,7 @@ const WebRoutes = () => {
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path='/checkout' element={<CheckoutForm /> } />
                     <Route path='/orders' element={<OrdersPage />} />
+                    <Route path="/thank-you" element={<ThankYou />} />
                     <Route path='*' element={<NotFound />} />
                 </Route>
             </Routes>

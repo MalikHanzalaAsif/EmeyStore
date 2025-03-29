@@ -267,3 +267,16 @@ export const verifyPayment = async (req, res) => {
         return res.status(500).send("Failed to verify payment");
     }
 };
+
+export const getOrders = async (req, res) => {
+    try{
+        const orders = await Order.find({userId: req.user.id});
+        if(orders.length === 0){
+            return res.json({type: "default", message: "orders not found!"});
+        }
+        return res.json({type: "success", orders: orders});
+    } catch (err) {
+        console.log("can't get orders!", err);
+        return res.status(500).send("can't get orders!");
+    }
+}

@@ -11,7 +11,7 @@ const Favourites = () => {
             <Heading text='Favourites' />
             <div id="FavouritesItemsDiv">
                 {favourites.map((product) => (
-                    <div className="FavouriteItem flex flex-col sm:flex-row justify-between border-b-2 mb-8 items-center">
+                    <div className="FavouriteItem flex flex-col sm:flex-row justify-between border-b-2 mb-8 items-center" key={product.id}>
                         <img src={product.image} alt={product.title} className="h-40 ml-8 mb-8" />
                         <div className="flex mb-8 sm:mb-0">
                             <p className="sm:mr-12 md:mr-24 lg:mr-44 text-gray-500">{product.title}</p>

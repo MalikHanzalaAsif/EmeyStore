@@ -1,11 +1,28 @@
 import { Link } from "react-router"
 import { useState } from "react";
 import useStore from "../../store/store";
-import { logoutApi } from "../../api/userApi";
+import { logoutApi, getUserApi } from "../../api/userApi";
+import { useQuery } from "@tanstack/react-query";
 
 const Avatar = () => {
+
+    useQuery({
+        queryKey: ["user"],
+        queryFn: getUserApi,
+        select: (data) => {
+            if(Object.keys(data).length === 0){
+                setUser(null);
+                console.log("can't get user!");
+            } else {
+                setUser(data)
+                console.log("succesfully updated user!")
+            }
+        }
+    });
+
+
     const [isLoading, setIsLoading] = useState(false);
-    const { user, removeUser } = useStore();
+    const { user, removeUser, setUser } = useStore();
     const [isOpen, setIsOpen] = useState(false);
 
     // Toggle dropdown visibility

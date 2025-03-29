@@ -1,7 +1,6 @@
 import axios from "axios";
 import toastEmitter from "../components/ui/toast.tsx"
 const serverUrl = import.meta.env.VITE_SERVER_URL;
-import { userInterface } from "../utils/types.ts";
 
 interface signupData {
     fullName: string;
@@ -79,13 +78,16 @@ export const logoutApi = async () => {
     };
 };
 
-export const getUserApi = async () => { 
+export const getUserApi = async (): Promise<any> => { 
     try { 
         const response = await axios.get(`${serverUrl}/user`, {
             withCredentials: true,
         });
+        if(!response.data || typeof response.data === "string"){
+            return {};
+        }
         return response.data;
      } catch (err) {
-        return;
+        return {};
      };
 };

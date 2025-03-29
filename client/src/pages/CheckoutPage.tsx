@@ -3,14 +3,14 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useNavigate } from 'react-router-dom';
 import toastEmitter from '../components/ui/toast.tsx';
-import { toast } from 'react-toastify';
+import { formDataInterface } from '../utils/types.ts';
 import { Controller, useForm } from "react-hook-form";
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { Modal, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import useStore from '../store/store.ts';
-import axios from 'axios';
+import { verifyPayment } from '../api/orderApi.ts';
 
 const ModalStyles = {
     position: 'absolute',
@@ -23,53 +23,7 @@ const ModalStyles = {
     maxHeight: "90vh",
 };
 
-interface formDataInterface {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-    city: string;
-    state: string;
-    zipCode: string;
-}
-
 const CheckoutForm = () => {
-    const verifyPayment = async (orderId: any, formData: formDataInterface) => {
-
-        const pendingToastId = toast.loading("Verifying payment...");
-
-        try {
-            const response = await axios.post(
-                `${import.meta.env.VITE_SERVER_URL}/verify-payment`,
-                { orderId, formData },
-                { withCredentials: true }
-            );
-
-            console.log("Payment verification response from backend: ", response.data);
-
-            toast.update(pendingToastId, {
-                render: "Payment verified successfully!",
-                type: "success",
-                isLoading: false,
-                autoClose: 3000,
-                closeButton: true,
-                closeOnClick: true,
-            });
-        } catch (error) {
-            console.error("Error verifying payment: ", error);
-
-            toast.update(pendingToastId, {
-                render: "Payment verification failed!",
-                type: "error",
-                isLoading: false,
-                autoClose: 3000,
-                closeButton: true,
-                closeOnClick: true,
-            });
-        }
-    };
-
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -372,7 +326,7 @@ const CheckoutForm = () => {
                                                 console.log("Transaction details: ", details);
                                                 if (details) {
                                                     await verifyPayment(details.id, formState);
-                                                    // navigate('/thank-you');
+                                                    navigate('/thank-you');
                                                 }
                                             });
                                         }

@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { ProductInterface } from '../utils/types';
-import { userInterface } from '../utils/types';
+import { ProductInterface, userInterface, ordersInterface } from '../utils/types';
 
 
 interface StoreState {
@@ -16,10 +15,11 @@ interface StoreState {
     removeFromFavourites: (item: ProductInterface) => void;
 
     user: userInterface | null;
-    setUser: (user: userInterface) => void;
+    setUser: (user: userInterface | null) => void;
     removeUser: () => void;
 
     orders: any;
+    setOrders: (orders: ordersInterface[] | null) => void;
 }
 
 const useStore = create<StoreState>()(
@@ -80,11 +80,12 @@ const useStore = create<StoreState>()(
 
 
             // Orders
-            orders: [],
+            orders: null,
+            setOrders: (item) => set({orders: item}),
         }),
         {
             name: "EmeyStore",
-            partialize: (state) => ({ cart: state.cart, favourites: state.favourites, user: state.user })
+            partialize: (state) => ({ cart: state.cart, favourites: state.favourites, user: state.user, orders: state.orders})
         }
     )
 );
