@@ -41,8 +41,8 @@ export default function Navbar() {
   return (
     <nav
       className={`bg-gradient-to-r from-[#210036] via-[#7038ed] to-[#210036] fixed w-full 
-      ${isScrolled ? "top-0" : "top-8"} z-50 p-4 border-b border-gray-400 text-white 
-      transition-all duration-300 shadow-sm`}
+      ${isScrolled ? "top-0" : "top-8"} z-50 p-4 border-gray-400 text-white 
+      transition-all duration-300 shadow-lg`}
     >
       <div className="container flex justify-between items-center">
         {/* Left Section - Logo */}
@@ -86,7 +86,7 @@ export default function Navbar() {
 
       <div
         ref={menuRef}
-        className={`md:hidden shadow-md border-b border-gray-300 text-white bg-gradient-to-r from-[#210036] via-[#7038ed] to-[#210036]
+        className={`md:hidden shadow-lg border-gray-300 text-white bg-gradient-to-r from-[#210036] via-[#7038ed] to-[#210036]
         absolute right-0 top-14 w-full flex flex-col space-y-4 p-4 
         transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "translate-x-full"}`}

@@ -21,9 +21,10 @@ export default function LoginPage() {
             setUser(data.user);
         }
         if(data.type === "success") {
-            navigate("/")
+            navigate("/");
+            reset();
         }
-        reset();
+        
     };
 
     return (

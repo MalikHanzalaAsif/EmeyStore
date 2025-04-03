@@ -23,8 +23,9 @@ export default function SignupPage() {
         }
         if(data.type === "success") {
             navigate("/")
+            reset();
         }
-        reset();
+        
     };
 
     return (

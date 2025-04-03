@@ -73,8 +73,8 @@ const Cart = () => {
                                                 <p className="mt-1 text-gray-500">Size: <span className="text-black">{item.size}</span></p>
                                             </div>
 
-                                            <div className="flex items-center gap-4" onClick={() => addToFavouriteFunc(item)}>
-                                                <button type="button" className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline">
+                                            <div className="flex items-center gap-4" >
+                                                <button type="button" className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline" onClick={() => addToFavouriteFunc(item)}>
                                                     <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
                                                     </svg>

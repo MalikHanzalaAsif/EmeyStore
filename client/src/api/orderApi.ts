@@ -14,8 +14,6 @@ export const verifyPayment = async (orderId: any, formData: formDataInterface) =
             { withCredentials: true }
         );
 
-        console.log("Payment verification response from backend: ", response.data);
-
         toast.update(pendingToastId, {
             render: "Payment verified successfully!",
             type: "success",
@@ -45,7 +43,6 @@ export const getOrdersApi = async () => {
         if (!response.data.orders || typeof response.data === "string") {
             return [];
         };
-        console.log(response.data)
         return response.data.orders;
     } catch (err) {
         console.error("failed to get orders!", err);

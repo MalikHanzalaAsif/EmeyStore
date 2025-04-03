@@ -1,8 +1,23 @@
 import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
+
 
 
 export const sendEmails = async (req, res, next) => {
+
+    const OAuth2 = google.auth.OAuth2;
+    const oauth2Client = new OAuth2(
+        process.env.GMAIL_CLIENT_ID,
+        process.env.GMAIL_CLIENT_SECRET,
+        process.env.GMAIL_REDIRECT_URI
+    );
+    oauth2Client.setCredentials({ refresh_token: process.env.GMAIL_REFRESH_TOKEN });
+
+    const accessTokenResponse = await oauth2Client.getAccessToken();
+    const accessToken = accessTokenResponse.token;
+    console.log(accessTokenResponse, accessToken);
     try {
+
         console.log(req.body);
         const { fullName, email, phone, message } = req.body;
 
@@ -10,8 +25,12 @@ export const sendEmails = async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
+                type: "oauth2",
                 user: process.env.FROM_EMAIL,
-                pass: process.env.FROM_EMAIL_PASS,
+                clientId: process.env.GMAIL_CLIENT_ID,
+                clientSecret: process.env.GMAIL_CLIENT_SECRET,
+                refreshToken: process.env.GMAIL_REFRESH_TOKEN,
+                accessToken: accessToken,
             },
         });
 

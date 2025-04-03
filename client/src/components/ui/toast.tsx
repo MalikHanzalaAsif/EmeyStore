@@ -24,7 +24,7 @@ interface ToastEmitterProps {
   theme?: string;
   redirectRoute?: any;
   redirectButton?: any;
-  navigate?: NavigateFunction;
+  navigate?: any;
 }
 const toastEmitter = ({
   title,

@@ -12,10 +12,8 @@ const Avatar = () => {
         select: (data) => {
             if(Object.keys(data).length === 0){
                 setUser(null);
-                console.log("can't get user!");
             } else {
                 setUser(data)
-                console.log("succesfully updated user!")
             }
         }
     });

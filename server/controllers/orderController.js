@@ -2,6 +2,8 @@ import axios from 'axios';
 import nodemailer from 'nodemailer';
 import Order from '../models/Order.js';
 import User from '../models/User.js';
+import { google } from 'googleapis';
+
 
 const getAccessToken = async () => {
     try {
@@ -42,6 +44,15 @@ const getOrderDetails = async (orderId, accessToken) => {
 
 export const sendEmails = async (formData, user, orderDetails, orderId) => {
     try {
+        const OAuth2 = google.auth.OAuth2;
+        const oauth2Client = new OAuth2(
+            process.env.GMAIL_CLIENT_ID,
+            process.env.GMAIL_CLIENT_SECRET,
+            process.env.GMAIL_REDIRECT_URI
+        );
+        oauth2Client.setCredentials({ refresh_token: process.env.GMAIL_REFRESH_TOKEN });
+        const accessToken = await oauth2Client.getAccessToken();
+
         const breakdown = orderDetails.purchase_units[0].amount.breakdown || {};
 
         const sellerReceivableBreakdown = orderDetails.purchase_units[0].payments.captures[0].seller_receivable_breakdown || {};
@@ -63,11 +74,16 @@ export const sendEmails = async (formData, user, orderDetails, orderId) => {
         const discount = breakdown.discount ? `${breakdown.discount}` : "0.00";
 
 
+        // Set up Nodemailer transporter
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
+                type: "oauth2",
                 user: process.env.FROM_EMAIL,
-                pass: process.env.FROM_EMAIL_PASS,
+                clientId: process.env.GMAIL_CLIENT_ID,
+                clientSecret: process.env.GMAIL_CLIENT_SECRET,
+                refreshToken: process.env.GMAIL_REFRESH_TOKEN,
+                accessToken: accessToken.token
             },
         });
 
@@ -269,12 +285,12 @@ export const verifyPayment = async (req, res) => {
 };
 
 export const getOrders = async (req, res) => {
-    try{
-        const orders = await Order.find({userId: req.user.id});
-        if(orders.length === 0){
-            return res.json({type: "default", message: "orders not found!"});
+    try {
+        const orders = await Order.find({ userId: req.user.id });
+        if (orders.length === 0) {
+            return res.json({ type: "default", message: "orders not found!" });
         }
-        return res.json({type: "success", orders: orders});
+        return res.json({ type: "success", orders: orders });
     } catch (err) {
         console.log("can't get orders!", err);
         return res.status(500).send("can't get orders!");
