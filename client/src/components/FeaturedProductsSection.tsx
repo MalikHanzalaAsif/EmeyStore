@@ -7,7 +7,7 @@ const FeaturedProductsSection = () => {
             <img id="FeaturedProductsCat" src="/img/FeaturedProductsCat.webp" alt="cat sitting" className="absolute h-44 bottom-0 right-0"/>
             <FeaturedProducts />
             <div className="flex justify-center items-center">
-                <Button text="Explore Shop" />
+                <Button text="Explore Shop" route="/shop"/>
             </div>
         </div>
     )

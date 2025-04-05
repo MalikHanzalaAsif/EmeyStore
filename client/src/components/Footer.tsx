@@ -22,19 +22,19 @@ const Footer = () => {
                 </ul>
                 <ul id="products" style={{zIndex: "1"}}>
                     <h2 className="text-lg font-semibold mb-8">PRODUCTS</h2>
-                    <li className="footerLi"><Link to="/shop/tshirts">Tshirts</Link></li>
-                    <li className="footerLi"><Link to="/shop/trousers">Trousers</Link></li>
-                    <li className="footerLi"><Link to="/shop/hoodies">Hoodies</Link></li>
-                    <li className="footerLi"><Link to="/shop/sweatshirts">Sweatshirts</Link></li>
-                    <li className="footerLi"><Link to="/shop/caps">Caps</Link></li>
+                    <li className="footerLi"><Link to="/shop">Tshirts</Link></li>
+                    <li className="footerLi"><Link to="/shop">Trousers</Link></li>
+                    <li className="footerLi"><Link to="/shop">Hoodies</Link></li>
+                    <li className="footerLi"><Link to="/shop">Sweatshirts</Link></li>
+                    <li className="footerLi"><Link to="/shop">Caps</Link></li>
                 </ul>
                 <ul id="products" className='mt-8 mx-8' style={{zIndex: "1"}}>
-                    <li className="footerLi"><Link to="/shop/keychains">Keychains</Link></li>
-                    <li className="footerLi"><Link to="/shop/notebooks">NoteBooks</Link></li>
-                    <li className="footerLi"><Link to="/shop/mousepads">MousePads</Link></li>
-                    <li className="footerLi"><Link to="/shop/mobilecovers">MobileCovers</Link></li>
-                    <li className="footerLi"><Link to="/shop/shorts">Shorts</Link></li>
-                    <li className="footerLi"><Link to="/shop/mugs">Mugs</Link></li>
+                    <li className="footerLi"><Link to="/shop">Keychains</Link></li>
+                    <li className="footerLi"><Link to="/shop">NoteBooks</Link></li>
+                    <li className="footerLi"><Link to="/shop">MousePads</Link></li>
+                    <li className="footerLi"><Link to="/shop">MobileCovers</Link></li>
+                    <li className="footerLi"><Link to="/shop">Shorts</Link></li>
+                    <li className="footerLi"><Link to="/shop">Mugs</Link></li>
                 </ul>
                 <ul id="resources" style={{zIndex: "1"}}>
                     <h2 className="text-lg font-semibold mb-8">RESOURCES</h2>

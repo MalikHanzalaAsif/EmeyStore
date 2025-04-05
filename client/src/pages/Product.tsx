@@ -33,7 +33,6 @@ const Product = () => {
             ...prev,
             color: newColor
         }))
-        console.log("color changed!")
     }
 
     const changeSize = (newSize: string) => {
@@ -41,7 +40,6 @@ const Product = () => {
             ...prev,
             size: newSize
         }))
-        console.log("size changed!")
     }
 
     const addToFavouriteFunc = () => {

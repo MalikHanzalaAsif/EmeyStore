@@ -3,8 +3,12 @@ import "../styles/FeaturedProducts.css";
 import Products from "../utils/Products";
 import Heading from "./ui/Heading";
 import { useNavigate } from "react-router";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import useStore from "../store/store";
 
 const FeaturedProducts = () => {
+    const { favourites, addToFavourites, removeFromFavourites } = useStore();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("ALL CATEGORIES");
     const categories = ["ALL CATEGORIES", "TSHIRTS", "TROUSERS", "HOODIES", "SWEATSHIRTS"];
@@ -22,7 +26,12 @@ const FeaturedProducts = () => {
             <div id="FeaturedProductsItems" className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center">
                 <div id='FeaturedProductsBgImg' className='absolute h-full w-full' style={{ zIndex: "-10" }}></div>
                 {filteredProducts.map((item) => (
-                    <div className="SingleFeaturedProduct my-8 border border-[#210036] w-48" key={item.id}>
+                    <div className="relative SingleFeaturedProduct my-8 border border-[#210036] w-48" key={item.id}>
+                        {favourites.some((Product) => Product.id === item.id) ? (
+                            <FavoriteIcon className="absolute right-0 m-2 cursor-pointer" onClick={() => removeFromFavourites(item)}/>
+                        ) : (
+                            <FavoriteBorderIcon className="absolute right-0 m-2 cursor-pointer" onClick={() => addToFavourites(item)}/>
+                        )}
                         <div className="SingleFeaturedProductImgSection flex justify-center items-center">
                             <img src={item.image} alt={item.title} className="h-40 my-4" />
                         </div>
