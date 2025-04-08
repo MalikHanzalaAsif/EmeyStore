@@ -7,11 +7,11 @@ const Home = () => {
       <div id="HomeContent" className="relative h-full flex justify-center md:justify-start items-center">
         <img id="HomeCat" src="/img/HomeCat.webp" alt="cat picture" className="absolute h-40 md:h-60 md:-bottom-20 bottom-0 right-0 md:left-72" />
         <div id="HomeText" className="ml-0 md:ml-32">
-          <h1 className="HomeMainText">Join The</h1>
-          <h1 className="HomeMainText">Emilia Camp</h1>
-          <p className="mb-8">Step into the world of ReZero</p>
+          <h1 className="HomeMainText text-center">From Emey’s World</h1>
+          <h1 className="HomeMainText text-center">to Your Wardrobe.</h1>
+          <p className="mb-8">Step into the world of Emey</p>
           <a href="#FeaturedProductsSection">
-            <Button text="Explore Shop" route="#FeaturedProductsSection" />
+            <Button text="shop merch now" route="#FeaturedProductsSection" />
           </a>
         </div>
         <div id="HomeIcons" className="absolute m-8 flex md:flex-col bottom-6 md:right-0 md:bottom-auto">

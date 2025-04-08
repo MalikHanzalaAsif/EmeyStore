@@ -10,6 +10,12 @@
     font-size: 4rem;
 }
 
+@media (max-width: 768px) {
+    .HomeMainText {
+        font-size: 3rem;
+    }
+}
+
 @keyframes SlideUpDown {
     0% {
         transform: translateY(0);

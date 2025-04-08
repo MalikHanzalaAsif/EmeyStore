@@ -9,7 +9,7 @@ const Avatar = () => {
     useQuery({
         queryKey: ["user"],
         queryFn: getUserApi,
-        select: (data) => {
+        select: (data: any) => {
             if(Object.keys(data).length === 0){
                 setUser(null);
             } else {

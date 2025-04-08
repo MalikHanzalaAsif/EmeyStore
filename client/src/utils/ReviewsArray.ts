@@ -1,38 +1,32 @@
 export default [
     {
         "id": "9eef80de-36ef-42eb-b2b0-97ca32902940",
-        "name": "Jessica M.",
+        "name": "@samvisuals",
         "profession": "CASUAL BUYER",
-        "review": "Emey's Store offers top-notch merchandise! I’ve bought shirts, hats, and accessories, and everything is great quality. Fast delivery and stylish designs. Highly recommend!"
+        "review": "Honestly didn’t expect this level of quality. The hoodie is thick, soft, and the design hits hard. Repping Emey daily now."
     },
     {
         "id": "af34296f-2e59-429b-9bce-e1e10bf0f411",
-        "name": "Daniel T.",
+        "name": "@JessRae_23",
         "profession": "FREQUENT BUYER",
-        "review": "Love shopping at Emey's Store for unique merchandise! The items always arrive quickly and in perfect condition. Definitely my go-to for trendy apparel and accessories."
+        "review": "The ‘Stay Real’ tee is 🔥🔥🔥. It’s more than merch—it feels like I’m part of something."
     },
     {
         "id": "fd41c5fb-4fd7-490b-a8d7-8012590ac9f5",
-        "name": "Emily R.",
+        "name": "@Devon.C",
         "profession": "NEW CUSTOMER",
-        "review": "Fantastic experience with Emey's Store! Their products are high-quality, and I’ve never been disappointed. Whether it’s a hoodie or a keychain, their merchandise always stands out!"
+        "review": "Wore the cap to school and got compliments all day. People keep asking where I got it. Emey’s stuff is lowkey elite."
     },
     {
         "id": "6ac33331-4a92-4132-b912-c745484fba6f",
-        "name": "Michael B.",
+        "name": "@LunaCodes",
         "profession": "CASUAL BUYER",
-        "review": "Emey's Store is the best for all my merch needs! Amazing products, from t-shirts to hoodies. Excellent customer service and fast shipping make it my favorite store."
+        "review": "Wasn’t sure at first, but this drop really delivered. Fast shipping, dope fit, and I love the hidden quote on the hoodie."
     },
     {
         "id": "9f8f161f-50e8-4980-b5df-3671bdd1e1c7",
-        "name": "Sophia W.",
+        "name": "@KingZayTV",
         "profession": "FREQUENT BUYER",
-        "review": "Great experience with Emey's Store! I love the variety and quality of their merch. It’s affordable, and the shipping is super fast—definitely my favorite online store!"
+        "review": "It’s giving comfort, style, and Emey energy all in one. Definitely worth the hype."
     },
-    {
-        "id": "136062fe-0669-4833-b835-8aa8bf519c8c",
-        "name": "JONAS BROWN",
-        "profession": "NEW CUSTOMER",
-        "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est temporibus, delectus quisquam debitis ex obcaecati totam explicabo impedit reprehenderit numquam quasi perferendis sequi ducimus, vel odio voluptatem enim dolorum tempore."
-    }
 ]
