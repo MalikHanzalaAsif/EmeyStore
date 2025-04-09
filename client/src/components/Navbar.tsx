@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import "../styles/Navbar.css";
 import { NavLink, Link } from "react-router";

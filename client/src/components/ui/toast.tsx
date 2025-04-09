@@ -1,4 +1,3 @@
-import { NavigateFunction } from "react-router";
 import { toast, ToastOptions } from "react-toastify";
 
 type ToastPosition =

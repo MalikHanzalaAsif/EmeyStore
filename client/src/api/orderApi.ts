@@ -8,7 +8,7 @@ export const verifyPayment = async (orderId: any, formData: formDataInterface) =
     const pendingToastId = toast.loading("Verifying payment...");
 
     try {
-        const response = await axios.post(
+        await axios.post(
             `${serverUrl}/verify-payment`,
             { orderId, formData },
             { withCredentials: true }

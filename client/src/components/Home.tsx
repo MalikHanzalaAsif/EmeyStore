@@ -9,12 +9,12 @@ const Home = () => {
         <div id="HomeText" className="ml-0 md:ml-32">
           <h1 className="HomeMainText text-center">From Emey’s World</h1>
           <h1 className="HomeMainText text-center">to Your Wardrobe.</h1>
-          <p className="mb-8">Step into the world of Emey</p>
-          <a href="#FeaturedProductsSection">
+          <p className="mb-8 text-center md:text-start">Step into the world of Emey</p>
+          <a href="#FeaturedProductsSection" className="flex justify-center md:justify-start">
             <Button text="shop merch now" route="#FeaturedProductsSection" />
           </a>
         </div>
-        <div id="HomeIcons" className="absolute m-8 flex md:flex-col bottom-6 md:right-0 md:bottom-auto">
+        <div id="HomeIcons" className="absolute m-8 flex md:flex-col bottom-0 md:right-0 md:bottom-auto">
           <img src="/img/facebook_white_icon.png" alt="facebook icon" className="h-8 m-2 cursor-pointer hover:opacity-80" />
           <img src="/img/linkedin_white_icon.png" alt="linkedin icon" className="h-8 m-2 cursor-pointer hover:opacity-80" />
           <img src="/img/instagram_white_icon.png" alt="instagram icon" className="h-8 m-2 cursor-pointer hover:opacity-80" />

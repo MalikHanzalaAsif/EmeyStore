@@ -2,7 +2,6 @@ import useStore from "../store/store";
 import { Link, useNavigate } from "react-router";
 import { useMemo } from "react";
 import toastEmitter from "../components/ui/toast";
-import { signupApi } from "../api/userApi";
 
 const Cart = () => {
     const navigate = useNavigate();

@@ -7,7 +7,7 @@ function App() {
     <>
       <PayPalScriptProvider
         options={{
-          "client-id": import.meta.env.VITE_PAYPAL_SANDBOX_CLIENT_ID,
+          clientId: import.meta.env.VITE_PAYPAL_SANDBOX_CLIENT_ID,
           currency: "USD",
         }}>
         <WebRoutes />

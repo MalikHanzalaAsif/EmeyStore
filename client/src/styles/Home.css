@@ -1,7 +1,7 @@
 #Home {
     background-image: url(/img/HomeBg.webp);
-    background-position: center;
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
 }
 
@@ -12,7 +12,7 @@
 
 @media (max-width: 768px) {
     .HomeMainText {
-        font-size: 3rem;
+        font-size: 4rem;
     }
 }
 
