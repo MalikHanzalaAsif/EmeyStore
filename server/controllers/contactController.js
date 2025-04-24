@@ -15,7 +15,6 @@ export const sendEmails = async (req, res, next) => {
 
     const accessTokenResponse = await oauth2Client.getAccessToken();
     const accessToken = accessTokenResponse.token;
-    console.log(accessTokenResponse, accessToken);
     try {
 
         console.log(req.body);
