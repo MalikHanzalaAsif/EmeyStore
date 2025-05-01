@@ -61,7 +61,7 @@ const Cart = () => {
                                                 </button>
                                             </div>
                                             <div className="text-end md:order-4 md:w-32">
-                                                <p className="text-base font-bold text-gray-900">${item.price}</p>
+                                                <p className="text-base font-bold text-gray-900">£{item.price}</p>
                                             </div>
                                         </div>
 
@@ -102,28 +102,28 @@ const Cart = () => {
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between gap-4">
                                         <span className="text-base font-normal text-gray-500">Original price</span>
-                                        <span className="text-base font-medium text-gray-900">${calcTotal.toFixed(2)}</span>
+                                        <span className="text-base font-medium text-gray-900">£{calcTotal.toFixed(2)}</span>
                                     </div>
 
                                     <div className="flex items-center justify-between gap-4">
                                         <span className="text-base font-normal text-gray-500">Savings</span>
-                                        <span className="text-base font-medium text-green-600">-$0.00</span>
+                                        <span className="text-base font-medium text-green-600">-£0.00</span>
                                     </div>
 
                                     <div className="flex items-center justify-between gap-4">
                                         <span className="text-base font-normal text-gray-500">Store Pickup</span>
-                                        <span className="text-base font-medium text-gray-900">$0.00</span>
+                                        <span className="text-base font-medium text-gray-900">£0.00</span>
                                     </div>
 
                                     <div className="flex items-center justify-between gap-4">
                                         <span className="text-base font-normal text-gray-500">Tax</span>
-                                        <span className="text-base font-medium text-gray-900">$0.00</span>
+                                        <span className="text-base font-medium text-gray-900">£0.00</span>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                                     <span className="text-base font-bold text-gray-900">Total</span>
-                                    <span className="text-base font-bold text-gray-900">${calcTotal.toFixed(2)}</span>
+                                    <span className="text-base font-bold text-gray-900">£{calcTotal.toFixed(2)}</span>
                                 </div>
                             </div>
 

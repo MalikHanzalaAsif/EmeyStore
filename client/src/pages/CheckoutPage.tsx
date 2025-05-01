@@ -278,7 +278,7 @@ const CheckoutForm = () => {
                             <h1 id="modal-modal-title" className='text-center text-4xl mb-4 text-white'>
                                 PayPal Checkout
                             </h1>
-                            <h3 className='text-white text-center text-xl'>Total Amount: <span className='text-[#7038ed] text-3xl'>${calculatedItemTotal.toFixed(2)}</span></h3>
+                            <h3 className='text-white text-center text-xl'>Total Amount: <span className='text-[#7038ed] text-3xl'>£{calculatedItemTotal.toFixed(2)}</span></h3>
                             <div>
                                 <div className="mt-6"></div>
                                 <PayPalButtons
@@ -294,10 +294,10 @@ const CheckoutForm = () => {
                                         const purchase_units = [
                                             {
                                                 amount: {
-                                                    currency_code: "USD",
+                                                    currency_code: "GBP",
                                                     value: calculatedItemTotal.toFixed(2),
                                                     breakdown: {
-                                                        item_total: { value: calculatedItemTotal.toFixed(2), currency_code: "USD" },
+                                                        item_total: { value: calculatedItemTotal.toFixed(2), currency_code: "GBP" },
                                                     },
                                                 },
                                                 items: cart.map(item => ({
@@ -305,7 +305,7 @@ const CheckoutForm = () => {
                                                     quantity: item.quantity.toString(),
                                                     unit_amount: {
                                                         value: parseFloat(item.price).toFixed(2),
-                                                        currency_code: "USD",
+                                                        currency_code: "GBP",
                                                     },
                                                     description: `color: ${item.color}, size: ${item.size}`
                                                 })),

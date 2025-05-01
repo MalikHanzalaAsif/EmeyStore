@@ -37,7 +37,7 @@ const FeaturedProducts = () => {
                         </div>
                         <div className="SingleFeaturedProductDetails flex justify-between border-t border-[#210036] py-1">
                             <p className="ml-2">{item.title}</p>
-                            <p className="mr-2 text-gray-500">${item.price}</p>
+                            <p className="mr-2 text-gray-500">£{item.price}</p>
                         </div>
                         <button className="SingleFeaturedProuctsButton text-center flex justify-center items-center w-full border-t border-[#210036] bg-[#210036] text-white py-1 hover:bg-[#7038ed] transition-colors duration-300" onClick={() => {
                             navigate(`/product/${item.id}`);

@@ -1,4 +1,5 @@
 import Products from "../utils/Products";
+import LatestProductsArray from "../utils/LatestProductsArray";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import useStore from "../store/store";
@@ -26,14 +27,22 @@ const Product = () => {
 
   const { id } = useParams();
   const currProduct = Products.find((product) => product.id === id);
-  const [currProductState, setCurrProductState] = useState<any>(currProduct || null);
+  let specialCurrentProduct = null;
+  if (!currProduct) {
+    specialCurrentProduct = LatestProductsArray.find(
+      (product: any) => product.id === id
+    );
+  }
+  const [currProductState, setCurrProductState] = useState<any>(
+    currProduct || specialCurrentProduct || null
+  );
   const [zoomModalOpen, setZoomModalOpen] = useState(false);
 
   const changeColor = (newColor: string) => {
     setCurrProductState((prev: any) => ({
       ...prev,
       color: newColor,
-      image: `${prev.baseUrl}${newColor}.webp`
+      image: `${prev.baseUrl}${newColor}.webp`,
     }));
   };
 
@@ -81,7 +90,7 @@ const Product = () => {
             </h1>
             <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
               <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-                ${currProductState.price}
+              £{currProductState.price}
               </p>
 
               <div className="flex items-center gap-2 mt-2 sm:mt-0">
@@ -150,25 +159,29 @@ const Product = () => {
             <div id="ModalOptions">
               <div id="ColorSelect" className="mt-8">
                 <h3 className="text-2xl mb-2">Color</h3>
-                <div className="flex space-x-3">
-                  {colors.map((color) => (
-                    <div
-                      key={color.name}
-                      className={`w-6 h-6 rounded-full cursor-pointer 
+                {specialCurrentProduct ? (
+                  <p className="text-gray-500">Not Available</p>
+                ) : (
+                  <div className="flex space-x-3">
+                    {colors.map((color) => (
+                      <button
+                        key={color.name}
+                        className={`w-6 h-6 rounded-full cursor-pointer 
                                                 ${
                                                   currProductState.color ===
                                                   color.name
                                                     ? "ring-2 ring-offset-2 ring-gray-800"
                                                     : ""
                                                 }`}
-                      style={{
-                        backgroundColor: color.colorCode,
-                        border: color.border ? "1px solid #ddd" : "none",
-                      }}
-                      onClick={() => changeColor(color.name)}
-                    ></div>
-                  ))}
-                </div>
+                        style={{
+                          backgroundColor: color.colorCode,
+                          border: color.border ? "1px solid #ddd" : "none",
+                        }}
+                        onClick={() => changeColor(color.name)}
+                      ></button>
+                    ))}
+                  </div>
+                )}
               </div>
               <div id="SizeSelect" className="mt-8">
                 <h3 className="text-2xl mb-2">Size</h3>
@@ -298,7 +311,15 @@ const Product = () => {
       </Modal>
     </section>
   ) : (
-    <h1>Product not found</h1>
+    <div className="h-screen flex flex-col justify-center items-center">
+      <h1 className="text-4xl">Product not found</h1>
+      <button
+        onClick={() => navigate(-1)}
+        className="border-2 px-4 py-1 mt-8 bg-purple-600 text-white rounded-md"
+      >
+        Back
+      </button>
+    </div>
   );
 };
 
