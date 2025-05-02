@@ -26,6 +26,13 @@ const Product = () => {
   const { addToCart, addToFavourites } = useStore();
 
   const { id } = useParams();
+  const defaultSizesProducts = [
+    "NOTEBOOKS",
+    "MUGS",
+    "MOUSEPADS",
+    "MOBILECOVERS",
+    "KEYCHAINS",
+  ];
   const currProduct = Products.find((product) => product.id === id);
   let specialCurrentProduct = null;
   if (!currProduct) {
@@ -90,7 +97,7 @@ const Product = () => {
             </h1>
             <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
               <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-              £{currProductState.price}
+                £{currProductState.price}
               </p>
 
               <div className="flex items-center gap-2 mt-2 sm:mt-0">
@@ -185,22 +192,26 @@ const Product = () => {
               </div>
               <div id="SizeSelect" className="mt-8">
                 <h3 className="text-2xl mb-2">Size</h3>
-                <div className="flex space-x-2">
-                  {sizes.map((size) => (
-                    <button
-                      key={size}
-                      className={`px-3 py-1 border rounded-md 
+                {defaultSizesProducts.includes(currProduct?.category) ? (
+                  <p className="text-gray-500">Not Available</p>
+                ) : (
+                  <div className="flex space-x-2">
+                    {sizes.map((size) => (
+                      <button
+                        key={size}
+                        className={`px-3 py-1 border rounded-md 
                                                 ${
                                                   currProductState.size === size
                                                     ? "border-gray-800 bg-gray-800 text-white"
                                                     : "border-gray-300 hover:bg-gray-100 hover:text-black cursor-pointer"
                                                 }`}
-                      onClick={() => changeSize(size)}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
+                        onClick={() => changeSize(size)}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 

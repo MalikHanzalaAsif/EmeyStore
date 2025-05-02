@@ -80,7 +80,7 @@ export default [
     "category": "NOTEBOOKS",
     "quantity": "1",
     "color": "White",
-    "size": "md",
+    "size": "Default",
     "baseUrl": "/products/notebooks/"
   },
   {
@@ -91,7 +91,7 @@ export default [
     "image": "/products/mugs/White.webp",
     "category": "MUGS",
     "quantity": "1",
-    "color": "White",
+    "color": "Default",
     "size": "md",
     "baseUrl": "/products/mugs/"
   },
@@ -103,7 +103,7 @@ export default [
     "image": "/products/mousepads/White.webp",
     "category": "MOUSEPADS",
     "quantity": "1",
-    "color": "White",
+    "color": "Default",
     "size": "md",
     "baseUrl": "/products/mousepads/"
   },
@@ -116,7 +116,7 @@ export default [
     "category": "MOBILECOVERS",
     "quantity": "1",
     "color": "White",
-    "size": "md",
+    "size": "Default",
     "baseUrl": "/products/mobilecovers/"
   },
   {
@@ -128,7 +128,7 @@ export default [
     "category": "KEYCHAINS",
     "quantity": "1",
     "color": "White",
-    "size": "md",
+    "size": "Default",
     "baseUrl": "/products/keychains/"
   },
 ];
